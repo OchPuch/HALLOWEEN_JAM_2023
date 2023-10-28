@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace States
 {
@@ -8,7 +9,9 @@ namespace States
         public override void Enter()
         {
             base.Enter();
-            PlayerController.rb.sharedMaterial = PlayerController.deathMaterial;
+            PlayerController.SwitchMaterialWithDelay(PlayerController.deathMaterial);
+            PlayerController.rb.gravityScale = PlayerController.deathGravityScale;
+            PlayerController.rb.velocity = Vector2.zero;
         }
         
         public override void Update()

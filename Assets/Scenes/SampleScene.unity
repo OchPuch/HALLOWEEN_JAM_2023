@@ -904,12 +904,18 @@ MonoBehaviour:
   jumpForce: 300
   jumpDelay: 0.05
   jumpTimer: 0
-  groundLayer:
+  rotateBackTime: 0.2
+  ragdollGravityScale: 0.5
+  deathGravityScale: 0
+  baseGravityScale: 0
+  groundLayer: 6
+  groundLayerMask:
     serializedVersion: 2
     m_Bits: 64
   playerCollider: {fileID: 757476716}
   groundCheckDistance: 0.02
   touchingSomething: 0
+  delay: 0
   defaultMaterial: {fileID: 6200000, guid: 3a91abf89fe3d2642bccfd0330bddc1d, type: 2}
   ragdollMaterial: {fileID: 6200000, guid: 3a91abf89fe3d2642bccfd0330bddc1d, type: 2}
   deathMaterial: {fileID: 6200000, guid: 3a91abf89fe3d2642bccfd0330bddc1d, type: 2}
@@ -1057,10 +1063,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 757476714}
+  soulPower: 1
   soulDestination: {x: 0, y: 0, z: 0}
   isActivated: 0
   soulMovement: {fileID: 1405732487}
   flyDistance: 5
+  mouseOffset: {x: 0, y: 0}
   deactivateDistance: 0
   deactivateDirection: {x: 0, y: 0, z: 0}
 --- !u!1 &1032111497
@@ -1457,6 +1465,53 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1356198488
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1356198490}
+  - component: {fileID: 1356198489}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1356198489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356198488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bb9c492bf2f90f4bb680e96a6fb95f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseTimeScale: 1
+  slowDownTimeScale: 0.0002
+  baseUnscaledChangeTime: 0.1
+--- !u!4 &1356198490
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356198488}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.5317903, y: 0.3838869, z: -0.14298534}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1382184218
 GameObject:
   m_ObjectHideFlags: 0
@@ -1799,15 +1854,8 @@ MonoBehaviour:
   - {fileID: 1956259887}
   - {fileID: 580960793}
   - {fileID: 248810647}
-  maxSpeedPoint: 50
-  maxForcePoint: 500
-  spawnPid:
-    kp: 1
-    ki: 1
-    kd: 1
-  maxSpeed: 20
-  maxForce: 100
-  errorThreshold: 0.1
+  despawnTime: 2
+  despawnAcceleration: 10
   spawnParticles: {fileID: 0}
   despawnParticles: {fileID: 0}
 --- !u!1 &1956259886

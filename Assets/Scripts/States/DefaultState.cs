@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace States
@@ -6,22 +7,26 @@ namespace States
     [Serializable]
     public class DefaultState : PlayerState
     {
-        
         public override void Enter()
         {
             base.Enter();
-            PlayerController.rb.sharedMaterial = PlayerController.defaultMaterial;
+            PlayerController.SwitchMaterialWithDelay(PlayerController.defaultMaterial);
+            PlayerController.rb.gravityScale = PlayerController.baseGravityScale;
+            PlayerController.rb.freezeRotation = true;
+            PlayerController.RotateBack();
         }
         
         public override void Update()
         {
-            bool isGrounded = PlayerController.CheckGround();
+            bool isGrounded = PlayerController.CheckGround() && PlayerController.touchingSomething;
             float moveInput = Input.GetAxis("Horizontal");
         
             if (!isGrounded)
             {
-                PlayerController.rb.AddForce(Vector2.right * (PlayerController.moveAcceleration * Time.deltaTime * moveInput));
-                if (Mathf.Abs(PlayerController.rb.velocityX) > PlayerController.moveMaxSpeed) PlayerController.rb.velocity = new Vector2(Mathf.Sign(PlayerController.rb.velocityX) * PlayerController.moveMaxSpeed ,PlayerController.rb.velocity.y);
+                if ((Mathf.Abs(PlayerController.rb.velocityX) < PlayerController.moveMaxSpeed))
+                {
+                    PlayerController.rb.AddForce(Vector2.right * (PlayerController.moveAcceleration * Time.deltaTime * moveInput));
+                }
             }
             else
             {
@@ -44,14 +49,19 @@ namespace States
         private void Jump()
         {
             if (PlayerController.jumpTimer > 0f) return;
-            if (!PlayerController.touchingSomething) return;
-            PlayerController.rb.AddForce(new Vector2(0f, PlayerController.jumpForce));
+            PlayerController.rb.velocityY = PlayerController.jumpForce;
             PlayerController.jumpTimer = PlayerController.jumpDelay;
         }
-
-        public override void Hit()
+        
+        
+        public override void OnTriggerEnter2D(Collider2D other)
         {
-            PlayerController.Die();
+            if (other.CompareTag("Danger"))
+            {
+                PlayerController.Die();
+            }
         }
+        
+        
     }
 }

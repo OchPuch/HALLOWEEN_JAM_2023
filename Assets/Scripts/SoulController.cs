@@ -11,10 +11,13 @@ public class SoulController : MonoBehaviour
     public PlayerController playerController;
     private Camera _mainCamera;
     [Header("Soul settings")]
+    public float soulPower = 1f;
     public Vector3 soulDestination;
     public bool isActivated = false;
     public SoulMovement soulMovement;
     public float flyDistance = 1f;
+    public Vector2 mouseOffset;
+    private Vector3 _mousePos;
     [Header("Deactivation")]
     public float deactivateDistance;
     public Vector3 deactivateDirection;
@@ -35,18 +38,31 @@ public class SoulController : MonoBehaviour
 
     private void Update()
     {
-        CalculateSoulPosition(_mainCamera.ScreenToWorldPoint(Input.mousePosition));
+        if (Input.GetMouseButtonDown(1) && isActivated)
+        {
+            DeactivateSoul();
+        }
+        if (Input.GetMouseButtonDown(0) && !isActivated)
+        {
+            playerController.Die();
+        }
+        CalculateSoulPosition(_mainCamera.ScreenToWorldPoint(Input.mousePosition + (Vector3) mouseOffset));
         if (isActivated) soulMovement.head.position = soulDestination;
     }
     
+    
+    
     public void ActivateSoul()
     {
+        TimeController.Instance.SlowDownTime();
+        mouseOffset = playerController.transform.position - _mainCamera.ScreenToWorldPoint(Input.mousePosition);
         soulMovement.ActivateSoul();
+        isActivated = true;
     }
     
-    [Button]
     public void DeactivateSoul()
     {
+        TimeController.Instance.SpeedUpTime();
         deactivateDistance = Vector3.Distance(soulMovement.head.position, playerController.transform.position);
         deactivateDirection = (-soulMovement.head.position + playerController.transform.position).normalized;
         soulMovement.DeactivateSoul();
