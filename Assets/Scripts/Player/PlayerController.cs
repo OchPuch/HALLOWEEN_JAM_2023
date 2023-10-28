@@ -31,10 +31,11 @@ public class PlayerController : MonoBehaviour
     [Header("Collisions")] 
     public int groundLayer; // Set this to the layer your ground is on in the inspector
     public LayerMask groundLayerMask;
-    public CircleCollider2D playerCollider;
+    public CapsuleCollider2D playerCollider;
     public float groundCheckDistance = 0.1f;
     private float _playerExtend;
     public bool touchingSomething;
+    public bool isGrounded => CheckGround() && touchingSomething;
     [Header("State Materials")]
     public float delay = 0.1f;
     public PhysicsMaterial2D defaultMaterial;
@@ -53,7 +54,6 @@ public class PlayerController : MonoBehaviour
         defaultState = new DefaultState();
         ragdollState = new RagdollState();
         deathState = new DeathState();
-
     }
 
     public void SetState(PlayerState newState)
@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
         baseGravityScale = rb.gravityScale;
         currentState = defaultState;
         currentState.Enter();
-        _playerExtend = playerCollider.radius * transform.localScale.y;
+        _playerExtend = playerCollider.size.y / 2f * transform.localScale.y;
     }
     
     void Update()

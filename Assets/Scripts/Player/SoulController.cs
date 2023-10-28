@@ -10,6 +10,7 @@ public class SoulController : MonoBehaviour
     [Header("General")]
     public PlayerController playerController;
     private Camera _mainCamera;
+    public bool canInteract;
     [Header("Soul settings")]
     public float soulPower = 1f;
     public Vector3 soulDestination;

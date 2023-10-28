@@ -18,10 +18,9 @@ namespace States
         
         public override void Update()
         {
-            bool isGrounded = PlayerController.CheckGround() && PlayerController.touchingSomething;
             float moveInput = Input.GetAxis("Horizontal");
         
-            if (!isGrounded)
+            if (!PlayerController.isGrounded)
             {
                 if ((Mathf.Abs(PlayerController.rb.velocityX) < PlayerController.moveMaxSpeed))
                 {
@@ -35,7 +34,7 @@ namespace States
         
             if (Input.GetButton("Jump"))
             { 
-                if (isGrounded) Jump();
+                if (PlayerController.isGrounded) Jump();
             }
         
             if (PlayerController.rb.velocityY > Mathf.Abs(PlayerController.maxYSpeed)) PlayerController.rb.velocity = new Vector2(PlayerController.rb.velocity.x, Mathf.Sign(PlayerController.rb.velocityY) * PlayerController.maxYSpeed);
@@ -51,6 +50,7 @@ namespace States
             if (PlayerController.jumpTimer > 0f) return;
             PlayerController.rb.velocityY = PlayerController.jumpForce;
             PlayerController.jumpTimer = PlayerController.jumpDelay;
+            CustomPlayerAnimator.Instance.Jump();
         }
         
         
