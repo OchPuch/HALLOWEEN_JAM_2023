@@ -11,6 +11,8 @@ public class PistolPropPhysics : MonoBehaviour
     public bool isLerpingBack = false;
     public float lerpTime = 1f;
     public GameObject hitEffect;
+    public AudioSource hitSound;
+    public AudioClip hitClip;
     
     public PhysicsMaterial2D bouncyMaterial;
     public PhysicsMaterial2D smoothMaterial;
@@ -25,8 +27,8 @@ public class PistolPropPhysics : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (isLerpingBack) isLerpingBack = false;
-        
-        
+        hitSound.clip = hitClip;
+        hitSound.Play();
         
         if (other.gameObject.CompareTag("Enemy"))
         {

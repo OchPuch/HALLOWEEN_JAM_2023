@@ -9,6 +9,7 @@ public class EnemyScript : MonoBehaviour, IKillable
     public GameObject gun;
 
     public TrackType trackType;
+
     public enum TrackType
     {
         AlwaysTrackPlayerWithGun,
@@ -17,7 +18,7 @@ public class EnemyScript : MonoBehaviour, IKillable
     }
 
     public bool raycastShoot;
-    
+
     public bool trackPlayerWithHead = false;
 
     public bool isShooting = false;
@@ -26,18 +27,18 @@ public class EnemyScript : MonoBehaviour, IKillable
 
     public int maxAmmo;
     public int ammo;
-    
+
     public float reloadTime;
     public float shootDelay;
     public float aimTime;
     public float blinkTime;
-    
+
     public Transform player;
     public Transform bulletSpawnPoint;
     public Transform laserVisualStartPoint;
-    
+
     public GameObject bulletPrefab;
-    
+
     public GameObject laserVisual; //Показывает куда смотрит враг
     public SpriteRenderer laserSr;
     public Color aimingColor;
@@ -61,13 +62,14 @@ public class EnemyScript : MonoBehaviour, IKillable
         if (trackType == TrackType.AlwaysTrackPlayerWithGun) TrackPlayerWithGun();
         UpdateLaserVisual();
     }
+
     void TrackPlayerWithHead()
     {
         Vector3 dir = player.position - head.transform.position;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         head.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
-    
+
     void TrackPlayerWithGun()
     {
         Vector3 dir = player.position - gun.transform.position;
@@ -75,16 +77,15 @@ public class EnemyScript : MonoBehaviour, IKillable
         gun.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
-    
+
     void UpdateLaserVisual()
-    {    
+    {
         if (isBlinking) laserSr.color = blinkColor;
-        else if (isAiming) laserSr.color = aimingColor; 
+        else if (isAiming) laserSr.color = aimingColor;
         else if (isShooting) laserSr.color = shootingColor;
         else laserSr.color = waitingColor;
 
-        
-        
+
         RaycastHit2D hit = Physics2D.Raycast(bulletSpawnPoint.position, gun.transform.right);
         if (!hit.collider) return;
         if (hit.collider.gameObject.CompareTag("Player"))
@@ -96,11 +97,12 @@ public class EnemyScript : MonoBehaviour, IKillable
         {
             gun.transform.rotation = startRotation;
         }
-       
-        Vector2 midPoint = ((Vector2) laserVisualStartPoint.position + hit.point) / 2;
+
+        Vector2 midPoint = ((Vector2)laserVisualStartPoint.position + hit.point) / 2;
         laserVisual.transform.position = midPoint;
-        laserVisual.transform.localScale = new Vector3(Vector2.Distance(laserVisualStartPoint.position, hit.point), laserVisual.transform.localScale.y, laserVisual.transform.localScale.z);
-        Vector2 dir = hit.point - (Vector2) laserVisualStartPoint.position;
+        laserVisual.transform.localScale = new Vector3(Vector2.Distance(laserVisualStartPoint.position, hit.point),
+            laserVisual.transform.localScale.y, laserVisual.transform.localScale.z);
+        Vector2 dir = hit.point - (Vector2)laserVisualStartPoint.position;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         laserVisual.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
@@ -118,12 +120,13 @@ public class EnemyScript : MonoBehaviour, IKillable
             isShooting = false;
             yield break;
         }
+
         if (hit.collider.gameObject.CompareTag("Player"))
         {
             isBlinking = true;
             yield return new WaitForSeconds(blinkTime);
             isBlinking = false;
-            
+
             while (true)
             {
                 Shoot();
@@ -134,11 +137,11 @@ public class EnemyScript : MonoBehaviour, IKillable
                     isShooting = false;
                     yield break;
                 }
+
                 yield return new WaitForSeconds(shootDelay);
             }
-            
         }
-        
+
 
         isShooting = false;
     }
@@ -147,15 +150,13 @@ public class EnemyScript : MonoBehaviour, IKillable
     {
         if (raycastShoot)
         {
-            
-                PlayerController.Instance.Kill();
-            
+            PlayerController.Instance.Kill();
         }
-        else {
+        else
+        {
             Instantiate(bulletPrefab, bulletSpawnPoint.position, gun.transform.rotation);
-
         }
-      
+
         ammo--;
     }
 

@@ -50,6 +50,7 @@ namespace States
         private void Jump()
         {
             if (PlayerController.jumpTimer > 0f) return;
+            PlayerAudio.Instance.PlayJumpSound();
             PlayerController.rb.velocityY = PlayerController.jumpForce;
             PlayerController.jumpTimer = PlayerController.jumpDelay;
             CustomPlayerAnimator.Instance.Jump();
@@ -57,6 +58,7 @@ namespace States
 
         public override void Kill()
         {
+            PlayerAudio.Instance.PlayDeathSound();
             PlayerController.lives--;
             if (PlayerController.lives < 0)
             {

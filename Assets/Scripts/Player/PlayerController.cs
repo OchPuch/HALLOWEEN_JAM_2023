@@ -112,6 +112,7 @@ public class PlayerController : MonoBehaviour, IKillable
     
     public void Revive()
     {
+        PlayerAudio.Instance.PlayReviveSound();
         Instantiate(reviveEffect, transform.position, Quaternion.identity);
         SetState(ragdollState);
     }
@@ -124,9 +125,6 @@ public class PlayerController : MonoBehaviour, IKillable
     public void Kill()
     {
         currentState.Kill();
-        
-        
-        
     }
     
     public void RotateBack()

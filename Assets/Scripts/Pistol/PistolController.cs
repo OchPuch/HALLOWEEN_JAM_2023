@@ -55,7 +55,6 @@ public class PistolController : MonoBehaviour
         Vector3 direction = mousePosition - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         pistolCenter.transform.rotation = Quaternion.Euler(0f,0f,angle);
-        
         if (Input.GetMouseButtonDown(0) && isLoaded)
         {
             Shoot();
@@ -69,12 +68,14 @@ public class PistolController : MonoBehaviour
     
     private void Shoot()
     {
+        PlayerAudio.Instance.PlayShootSound();
         var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, pistolCenter.transform.rotation);
         isLoaded = false;
     }
     
     public void PickUpPistol(PistolProp pistolProp)
     {
+        PlayerAudio.Instance.PlayPickUpSound();
         isEquipped = true;
         isLoaded = pistolProp.isLoaded;
         
@@ -82,6 +83,7 @@ public class PistolController : MonoBehaviour
     
     public void ThrowPistol()
     {
+        PlayerAudio.Instance.PlayThrowSound();
         var pistolPropPhysics = Instantiate(pistolPropPrefab, pistolThrowPoint.position, pistolCenter.transform.rotation);
         pistolPropPhysics.isThrown = true;
         var pistolProp = pistolPropPhysics.connectedProp;

@@ -42,6 +42,7 @@ public class CustomPlayerAnimator : MonoBehaviour
             if (playerController.CheckGround() && horizontalMovement > runThreshold)
             {
                 animator.SetBool("IsRunning", true);
+                PlayerAudio.Instance.PlayStepSound();
             }
             else
             {
