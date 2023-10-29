@@ -295,8 +295,8 @@ MonoBehaviour:
   ammo: 0
   reloadTime: 3
   shootDelay: 0.05
-  aimTime: 0.5
-  blinkTime: 0.5
+  aimTime: 0.7
+  blinkTime: 0.1
   player: {fileID: 0}
   bulletSpawnPoint: {fileID: 2352345200823499852}
   laserVisualStartPoint: {fileID: 4063592351464596637}
@@ -304,7 +304,7 @@ MonoBehaviour:
   laserVisual: {fileID: 914329116059264659}
   laserSr: {fileID: 5949685364716669253}
   aimingColor: {r: 1, g: 0, b: 0.23511362, a: 1}
-  shootingColor: {r: 1, g: 0.3918015, b: 0.36470592, a: 0.6666667}
+  shootingColor: {r: 1, g: 0.5909977, b: 0.2688679, a: 0.6666667}
   waitingColor: {r: 1, g: 0, b: 0, a: 0.78431374}
   blinkColor: {r: 1, g: 1, b: 1, a: 1}
   startRotation: {x: 0, y: 0, z: 0, w: 0}

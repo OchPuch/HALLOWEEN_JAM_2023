@@ -25,6 +25,7 @@ public class VoiceLineManager : MonoBehaviour
     
     public void PlayVoiceLine(AudioClip clip)
     {
+        if (clip == null) return;
         if (PlayerPrefs.GetInt(clip.name, 0) == 1) return;
         StopAllCoroutines();
         audioSource.clip = clip;
