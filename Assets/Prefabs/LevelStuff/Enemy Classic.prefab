@@ -454,7 +454,7 @@ MonoBehaviour:
   blinkSound: {fileID: 8300000, guid: e4c0e8a79e804fe42a44514b5d171910, type: 3}
   head: {fileID: 1513354229507566206}
   gun: {fileID: 4246772921550349692}
-  trackType: 0
+  trackType: 1
   raycastShoot: 0
   trackPlayerWithHead: 0
   isShooting: 0
