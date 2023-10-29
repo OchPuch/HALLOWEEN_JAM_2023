@@ -59,6 +59,7 @@ public class MusicManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
     }
     
     public void Start()
