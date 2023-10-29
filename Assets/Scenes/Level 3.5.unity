@@ -593,6 +593,46 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 2290747791986530537, guid: 04c262e139d5a72459617fbfadce1ddf, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2290747791986530537, guid: 04c262e139d5a72459617fbfadce1ddf, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2803420889615876926, guid: 04c262e139d5a72459617fbfadce1ddf, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2803420889615876926, guid: 04c262e139d5a72459617fbfadce1ddf, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2803420889615876926, guid: 04c262e139d5a72459617fbfadce1ddf, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3312197448897569019, guid: 04c262e139d5a72459617fbfadce1ddf, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3312197448897569019, guid: 04c262e139d5a72459617fbfadce1ddf, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3609341868154661703, guid: 04c262e139d5a72459617fbfadce1ddf, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3609341868154661703, guid: 04c262e139d5a72459617fbfadce1ddf, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3609341868154661703, guid: 04c262e139d5a72459617fbfadce1ddf, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5737788406824184891, guid: 04c262e139d5a72459617fbfadce1ddf, type: 3}
       propertyPath: orthographic size
       value: 2.8964612
@@ -1485,6 +1525,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 478443828457838695, guid: 7823364303f070a45ad25586349c12bd, type: 3}
+      propertyPath: clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 39975296e189dcb4d997e909f14e7882, type: 3}
     - target: {fileID: 7687288481901510596, guid: 7823364303f070a45ad25586349c12bd, type: 3}
       propertyPath: m_Name
       value: VoiceLine
