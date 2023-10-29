@@ -9,6 +9,10 @@
         public Laser[] lasers;
         public Door[] doors;
         
+        public AudioSource audioSource;
+        public AudioClip activateSound;
+        public AudioClip deactivateSound;
+        
         private void Start()
         {
             sr.sprite = isActivated ? activatedSprite : deactivatedSprite;
@@ -20,6 +24,9 @@
             if (!isInteractable) return;
             if (isSwitch) isActivated = !isActivated;
             else isActivated = true;
+            
+            audioSource.clip = isActivated ? activateSound : deactivateSound;
+            audioSource.Play();
             
             sr.sprite = isActivated ? activatedSprite : deactivatedSprite;
             

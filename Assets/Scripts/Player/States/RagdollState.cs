@@ -42,6 +42,7 @@ namespace States
         {
             if (other.gameObject.CompareTag("Enemy"))
             {
+                PlayerController.Instance.Heal();
                 IKillable enemyScript = other.gameObject.GetComponent<IKillable>();
                 if (enemyScript != null)
                 {

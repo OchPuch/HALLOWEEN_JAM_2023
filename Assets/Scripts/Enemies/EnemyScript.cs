@@ -5,6 +5,37 @@ using UnityEngine;
 
 public class EnemyScript : MonoBehaviour, IKillable
 {
+    public AudioSource audioSource;
+    public AudioClip deathSound;
+    public AudioClip shootSound;
+    public AudioClip reloadSound;
+    public AudioClip blinkSound;
+    
+    public void PlayDeathSound()
+    {
+        audioSource.clip = deathSound;
+        audioSource.Play();
+    }
+    
+    public void PlayShootSound()
+    {
+        audioSource.clip = shootSound;
+        audioSource.Play();
+    }
+    
+    public void PlayReloadSound()
+    {
+        audioSource.clip = reloadSound;
+        audioSource.Play();
+    }
+    
+    public void PlayBlinkSound()
+    {
+        audioSource.clip = blinkSound;
+        audioSource.Play();
+    }
+    
+        
     public GameObject head;
     public GameObject gun;
 
@@ -124,7 +155,18 @@ public class EnemyScript : MonoBehaviour, IKillable
         if (hit.collider.gameObject.CompareTag("Player"))
         {
             isBlinking = true;
+            PlayBlinkSound();
             yield return new WaitForSeconds(blinkTime);
+            
+            //Check if player still there
+            hit = Physics2D.Raycast(bulletSpawnPoint.position, gun.transform.right);
+            if (!hit.collider.CompareTag("Player"))
+            {
+                isShooting = false;
+                isBlinking = false;
+                yield break;
+            }
+            
             isBlinking = false;
 
             while (true)
@@ -132,6 +174,7 @@ public class EnemyScript : MonoBehaviour, IKillable
                 Shoot();
                 if (ammo <= 0)
                 {
+                    PlayReloadSound();
                     yield return new WaitForSeconds(reloadTime);
                     ammo = maxAmmo;
                     isShooting = false;
@@ -148,6 +191,7 @@ public class EnemyScript : MonoBehaviour, IKillable
 
     public void Shoot()
     {
+        PlayShootSound();
         if (raycastShoot)
         {
             PlayerController.Instance.Kill();
@@ -163,6 +207,7 @@ public class EnemyScript : MonoBehaviour, IKillable
 
     public void Kill()
     {
+        PlayDeathSound();
         Destroy(gameObject);
         Destroy(laserVisual);
     }

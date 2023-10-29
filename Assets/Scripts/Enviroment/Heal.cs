@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Heal : MonoBehaviour
 {
+    public AudioSource audioSource;
     public SpriteRenderer sr;
     public Sprite fullSprite;
     public Sprite collectedSprite;
@@ -20,6 +21,7 @@ public class Heal : MonoBehaviour
             if (!isUsed && PlayerController.Instance.lives != PlayerController.Instance.maxLives)
             {
                 PlayerController.Instance.Heal();
+                audioSource.Play();
                 sr.sprite = collectedSprite;
                 substance.SetActive(false);
                 isUsed = true;
