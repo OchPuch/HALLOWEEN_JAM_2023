@@ -10,8 +10,6 @@ public class PlayerInterface : MonoBehaviour
 {
     public AudioMixer audioMixer;
     
-    
-    
     public Color dangerColor;
     public Color okColor;
     public Color deathColor;
@@ -34,6 +32,9 @@ public class PlayerInterface : MonoBehaviour
     {
         sfx.value = PlayerPrefs.GetFloat("SFX", 0.5f);
         music.value = PlayerPrefs.GetFloat("Music", 0.5f);
+        
+        UpdateMusicVolume(music);
+        UpdateSfxVolume(sfx);
         
         pauseMenu.SetActive(isPaused);
     }
