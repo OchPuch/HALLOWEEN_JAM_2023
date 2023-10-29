@@ -299,10 +299,10 @@ MonoBehaviour:
   isBlinking: 0
   maxAmmo: 1
   ammo: 0
-  reloadTime: 3
+  reloadTime: 1
   shootDelay: 0.05
-  aimTime: 0.5
-  blinkTime: 0.5
+  aimTime: 0.3
+  blinkTime: 0.2
   player: {fileID: 0}
   bulletSpawnPoint: {fileID: 2352345200823499852}
   laserVisualStartPoint: {fileID: 4063592351464596637}
