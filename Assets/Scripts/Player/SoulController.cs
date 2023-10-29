@@ -48,14 +48,16 @@ public class SoulController : MonoBehaviour
 
     private void Update()
     {
+        if (Time.timeScale == 0) return;
+
         if (playerController.currentState != playerController.deathState) return;
-        
-        if (Input.GetMouseButtonDown(0) && isActivated)
+        bool isMouseOverUI = UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject();
+        if (Input.GetMouseButtonDown(0) && isActivated && !isMouseOverUI)
         {
             DeactivateSoul();
         }
 
-        if (Input.GetMouseButtonDown(1) && canInteract)
+        if (Input.GetMouseButtonDown(1) && canInteract && !isMouseOverUI) 
         {
             soulHead.closestThing.Interact();
         }

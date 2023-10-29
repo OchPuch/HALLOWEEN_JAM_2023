@@ -101,6 +101,8 @@ public class GameManager : MonoBehaviour
             StartCoroutine(WaitAfterGameOver());
         }
     }
+    
+    
 
     public IEnumerator WaitAfterGameOver()
     {

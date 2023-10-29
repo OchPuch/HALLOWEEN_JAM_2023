@@ -96,6 +96,7 @@ public class PlayerController : MonoBehaviour, IKillable
     
     void Update()
     {
+        if (Time.timeScale == 0) return;
         jumpTimer -= Time.deltaTime;
         currentState.Update();
     }

@@ -45,6 +45,8 @@ public class PistolController : MonoBehaviour
     
     private void Update()
     {
+        if (Time.timeScale == 0) return;
+        
         loadedIndicator.SetActive(isLoaded);
         pistolCenter.SetActive(isEquipped);
         
@@ -55,7 +57,9 @@ public class PistolController : MonoBehaviour
         Vector3 direction = mousePosition - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         pistolCenter.transform.rotation = Quaternion.Euler(0f,0f,angle);
-        if (Input.GetMouseButtonDown(0) && isLoaded)
+        //aslso check if mouse not over UI
+        bool isMouseOverUI = UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject();
+        if (Input.GetMouseButtonDown(0) && isLoaded && !isMouseOverUI)
         {
             Shoot();
         }

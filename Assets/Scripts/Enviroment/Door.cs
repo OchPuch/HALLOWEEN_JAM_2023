@@ -11,6 +11,20 @@ public class Door : MonoBehaviour
     public Color openColor;
     public Transform doorOpenPoint;
     public float doorOpenTime = 1f;
+
+    public void Start()
+    {
+        if (!isLocked)
+        {
+            doorLight.color = openColor;
+            StartCoroutine(OpenDoor());
+        }
+        else
+        {
+            doorLight.color = closedColor;
+        }
+    }
+
     public void SetActive(bool active)
     {
         isLocked = !active;
