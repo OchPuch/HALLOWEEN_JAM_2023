@@ -1,16 +1,20 @@
 using System;
 using System.Collections;
+using Player;
 using Sirenix.OdinInspector;
 using States;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IKillable
 {
     public static PlayerController Instance;
-    
-    [Header("General")]
+
+    [Header("General")] 
+    public int lives = 1;
+    public int maxLives = 1;
     public Rigidbody2D rb;
     public SoulController soulController;
     [Header("Speed")]
@@ -47,17 +51,23 @@ public class PlayerController : MonoBehaviour
     public PlayerState ragdollState;
     public PlayerState deathState;
     public Action<PlayerState> OnStateChange;
-    
+    [Header("Particles")]
+    public GameObject deathEffect;
+    public GameObject trueDeathEffect;
+    public GameObject reviveEffect;
     private void Awake()
     {
         Instance = this;
         defaultState = new DefaultState();
         ragdollState = new RagdollState();
         deathState = new DeathState();
+        baseGravityScale = rb.gravityScale;
+        rb.gravityScale = 0.0f;
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     public void SetState(PlayerState newState)
-    {
+    {   
         currentState.Exit();
         currentState = newState;
         currentState.Enter();
@@ -66,10 +76,22 @@ public class PlayerController : MonoBehaviour
     
     void Start()
     {
-        baseGravityScale = rb.gravityScale;
+        GameManager.Instance.playerVelocityOnLeave = Vector2.zero;
         currentState = defaultState;
         currentState.Enter();
         _playerExtend = playerCollider.size.y / 2f * transform.localScale.y;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (GameManager.Instance.loadedFromCheckpoint)
+        {
+            rb.velocity = Vector2.zero;
+            lives = GameManager.Instance.livesOnCheckpoint;
+            return;
+        }
+        rb.velocity = GameManager.Instance.playerVelocityOnLeave;
+        lives = GameManager.Instance.livesOnLeave;
     }
     
     void Update()
@@ -87,16 +109,24 @@ public class PlayerController : MonoBehaviour
         // If the raycast hit something (i.e., the ground), allow the player to jump
         return hit.collider != null;
     }
-
-    [Button]
-    public void Die()
-    {
-        SetState(deathState);
-    }
     
     public void Revive()
     {
+        Instantiate(reviveEffect, transform.position, Quaternion.identity);
         SetState(ragdollState);
+    }
+
+    public void Heal()
+    {
+        lives = maxLives;
+    }
+    
+    public void Kill()
+    {
+        currentState.Kill();
+        
+        
+        
     }
     
     public void RotateBack()
@@ -154,7 +184,9 @@ public class PlayerController : MonoBehaviour
     {
         currentState.OnTriggerExit2D(other);
     }
-    
-    
-    
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
 }

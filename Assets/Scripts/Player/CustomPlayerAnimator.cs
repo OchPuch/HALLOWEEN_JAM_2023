@@ -23,7 +23,6 @@ public class CustomPlayerAnimator : MonoBehaviour
         playerController = PlayerController.Instance;
         _spriteObjectScale = spriteObject.transform.localScale;
         animator.SetBool("IsRunning", false);
-        animator.SetBool("IsJumping", false);
         animator.SetBool("Falling", false);
         animator.SetBool("Flying", false);
     }
@@ -48,8 +47,7 @@ public class CustomPlayerAnimator : MonoBehaviour
             {
                 animator.SetBool("IsRunning", false);
             }
-
-
+            
             if (verticalMovement > fallingOrFlyingThreshold)
             {
                 animator.SetBool("Flying", true);
@@ -63,7 +61,6 @@ public class CustomPlayerAnimator : MonoBehaviour
                 animator.SetBool("Flying", false);
                 animator.SetBool("Falling", false);
             }
-
         }
     }
 

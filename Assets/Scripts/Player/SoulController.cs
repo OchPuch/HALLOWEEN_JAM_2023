@@ -1,14 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Player;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class SoulController : MonoBehaviour
 {
+    public static SoulController Instance;
     [Header("General")]
     public PlayerController playerController;
+    public SoulHead soulHead;
     private Camera _mainCamera;
     public bool canInteract;
     [Header("Soul settings")]
@@ -22,7 +25,12 @@ public class SoulController : MonoBehaviour
     [Header("Deactivation")]
     public float deactivateDistance;
     public Vector3 deactivateDirection;
-    
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     public void Start()
     {
         _mainCamera = Camera.main;
@@ -33,24 +41,28 @@ public class SoulController : MonoBehaviour
     {
         if (newState == playerController.deathState)
         {
+            if (playerController.lives < 0) return;
             ActivateSoul();
         }
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(1) && isActivated)
+        if (playerController.currentState != playerController.deathState) return;
+        
+        if (Input.GetMouseButtonDown(0) && isActivated)
         {
             DeactivateSoul();
         }
-        if (Input.GetMouseButtonDown(0) && !isActivated)
+
+        if (Input.GetMouseButtonDown(1) && canInteract)
         {
-            playerController.Die();
+            soulHead.closestThing.Interact();
         }
+        
         CalculateSoulPosition(_mainCamera.ScreenToWorldPoint(Input.mousePosition + (Vector3) mouseOffset));
         if (isActivated) soulMovement.head.position = soulDestination;
     }
-    
     
     
     public void ActivateSoul()
