@@ -30,8 +30,8 @@ public class PlayerInterface : MonoBehaviour
 
     private void Start()
     {
-        sfx.value = PlayerPrefs.GetFloat("SFX", 0.5f);
-        music.value = PlayerPrefs.GetFloat("Music", 0.5f);
+        sfx.value = PlayerPrefs.GetFloat("SFX", 0.8f);
+        music.value = PlayerPrefs.GetFloat("Music", 0.8f);
         
         UpdateMusicVolume(music);
         UpdateSfxVolume(sfx);

@@ -1528,7 +1528,7 @@ PrefabInstance:
     - target: {fileID: 478443828457838695, guid: 7823364303f070a45ad25586349c12bd, type: 3}
       propertyPath: clip
       value: 
-      objectReference: {fileID: 8300000, guid: 39975296e189dcb4d997e909f14e7882, type: 3}
+      objectReference: {fileID: 8300000, guid: 3456880145dd2f444a411dfb1042cab3, type: 3}
     - target: {fileID: 7687288481901510596, guid: 7823364303f070a45ad25586349c12bd, type: 3}
       propertyPath: m_Name
       value: VoiceLine
