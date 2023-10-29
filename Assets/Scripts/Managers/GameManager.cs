@@ -59,12 +59,7 @@ public class GameManager : MonoBehaviour
         loadingCheckpoint = false;
         loadedFromCheckpoint = false;
     }
-
-    private void Start()
-    {
-        Resources.LoadAll("");
-    }
-
+    
     public void NextLevel()
     {
         playerVelocityOnLeave = PlayerController.Instance.rb.velocity;
